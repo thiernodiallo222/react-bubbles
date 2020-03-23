@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { axiosWithAuth } from "./axiosWithAuth";
 
 const initialColor = {
   color: "",
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, ...props }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -16,11 +16,29 @@ const ColorList = ({ colors, updateColors }) => {
     setColorToEdit(color);
   };
 
-  const saveEdit = e => {
-    e.preventDefault();
+  // useEffect(() => {
+  //   saveEdit();
+  // }, []);
+
+   const saveEdit = e => {
+    if(e)e.preventDefault();
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+    axiosWithAuth()
+      .put(`colors/${colors.id}`, colorToEdit)
+      .then(res => {
+        console.log("Response from put request: ", res);
+        setColorToEdit(res.data);
+        let element = colors.find(item => {
+          return (item.id === res.data.id)
+        });
+        element = res.data.data;
+      // props.history.push("/bubbles-page");
+      }) // end of .then
+      .catch(err => {
+        console.log(err);
+      });  // end of .catch
   };
 
   const deleteColor = color => {

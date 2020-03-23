@@ -1,0 +1,20 @@
+button{
+    width: 600px;
+    height: 30px;
+    color: white;
+    background: black;
+    border-radius: 45px;
+}
+.input-button{
+    width: 600px;
+    height: 30px;
+}
+
+NavLink{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    padding: 5px;
+    background: whitesmoke;
+    color: blue;
+}
