@@ -5,18 +5,15 @@ import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "./axiosWithAuth";
 import { withRouter } from 'react-router-dom';
 
-
 const initialColor = {
   color: "",
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors, ...props }) => {
+const ColorList = ({ colors, updateColors, history }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
-
-  const { histoty } = props;
 
   const editColor = color => {
     setEditing(true);
@@ -24,31 +21,34 @@ const ColorList = ({ colors, updateColors, ...props }) => {
   };
 
    const saveEdit = e => {
-    // e.preventDefault();
+    e.preventDefault();
       
     axiosWithAuth()
       .put(`/colors/${colorToEdit.id}`, colorToEdit)
       .then(res => {
         console.log("Response from put request: ", res);
+        updateColors(colors);  // 
+         window.history.go('/colors');
       }) // end of .then
       .catch(err => {
         console.log(err);
       });  // end of .catch
   };
 
-  const deleteColor = color => {
-      const { histoty } = props;
+  const deleteColor = (color) => {
     // make a delete request to delete this color
     axiosWithAuth()
       .delete(`/colors/${color.id}`)
       .then(res => {
         console.log('Response from delete request', res);
+         updateColors(colors);
+        // history.push("/colors");
+        window.history.go('/colors');
       })
       .catch(err => {
         console.log(err);
       });
   };
-  //  history.push('/');
 
   return (
     <div className="colors-wrap">

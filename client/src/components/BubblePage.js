@@ -11,7 +11,7 @@ const BubblePage = () => {
     axiosWithAuth()
       .get("/colors")
       .then(res => {
-        console.log("Response from get bubbles request:");
+        console.log("Response from get bubbles request:", res);
         setColorList(res.data);
       })
       .catch(err => {
@@ -27,18 +27,4 @@ const BubblePage = () => {
       </>
     );
   };
-
 export default BubblePage;
-
-
-
-
-        // make a delete request to delete this color
-  // axiosWithAuth()
-  //   .delete(`/colors/${colors.id}`)
-  //   .then(res => {
-  //     console.log("Response from delete request: ", res);
-  //   })  // end of the .then
-  //   .catch(err => {
-  //   console.log(err)
-  //   })  // end of the .catch 

@@ -13,18 +13,15 @@ function App() {
     <Router>
       <div className="App">
        <Link to="/">Log in</Link>
-       <Link to="/bubbles-page">bubbles</Link>
-
-         
+        <Link to="/bubbles-page">bubbles</Link>
+        
         <Switch>
           <Route exact path="/" component={Login} />
           <ProtectedRoute exact path="/bubbles-page"
             component={BubblePage} />
            <ProtectedRoute exact path="/colors"
             component={ColorsList} />
-          
         </Switch>
-       
       </div>
     </Router>
   );
