@@ -28,7 +28,7 @@ const ColorList = ({ colors, updateColors, history }) => {
       .then(res => {
         console.log("Response from put request: ", res);
         updateColors(colors);  // 
-         window.history.go('/colors');
+         window.history.go('/bubbles-page');
       }) // end of .then
       .catch(err => {
         console.log(err);
@@ -43,7 +43,7 @@ const ColorList = ({ colors, updateColors, history }) => {
         console.log('Response from delete request', res);
          updateColors(colors);
         // history.push("/colors");
-        window.history.go('/colors');
+        window.history.go('/bubbles-page');
       })
       .catch(err => {
         console.log(err);
