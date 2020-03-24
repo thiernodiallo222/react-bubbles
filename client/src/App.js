@@ -18,13 +18,13 @@ function App() {
          
         <Switch>
           <Route exact path="/" component={Login} />
-
-          <ProtectedRoute path="/bubbles-page"
+          <ProtectedRoute exact path="/bubbles-page"
             component={BubblePage} />
-           <ProtectedRoute path="/colors"
+           <ProtectedRoute exact path="/colors"
             component={ColorsList} />
           
         </Switch>
+       
       </div>
     </Router>
   );

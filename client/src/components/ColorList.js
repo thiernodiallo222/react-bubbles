@@ -1,5 +1,10 @@
+
+
+// import { useParams } from "react-router";
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "./axiosWithAuth";
+import { withRouter } from 'react-router-dom';
+
 
 const initialColor = {
   color: "",
@@ -11,30 +16,20 @@ const ColorList = ({ colors, updateColors, ...props }) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
+  const { histoty } = props;
+
   const editColor = color => {
     setEditing(true);
     setColorToEdit(color);
   };
 
-  // useEffect(() => {
-  //   saveEdit();
-  // }, []);
-
    const saveEdit = e => {
-    if(e)e.preventDefault();
-    // Make a put request to save your updated color
-    // think about where will you get the id from...
-    // where is is saved right now?
+    // e.preventDefault();
+      
     axiosWithAuth()
-      .put(`colors/${colors.id}`, colorToEdit)
+      .put(`/colors/${colorToEdit.id}`, colorToEdit)
       .then(res => {
         console.log("Response from put request: ", res);
-        setColorToEdit(res.data);
-        let element = colors.find(item => {
-          return (item.id === res.data.id)
-        });
-        element = res.data.data;
-      // props.history.push("/bubbles-page");
       }) // end of .then
       .catch(err => {
         console.log(err);
@@ -42,8 +37,18 @@ const ColorList = ({ colors, updateColors, ...props }) => {
   };
 
   const deleteColor = color => {
+      const { histoty } = props;
     // make a delete request to delete this color
+    axiosWithAuth()
+      .delete(`/colors/${color.id}`)
+      .then(res => {
+        console.log('Response from delete request', res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
+  //  history.push('/');
 
   return (
     <div className="colors-wrap">
